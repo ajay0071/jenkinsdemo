@@ -7,14 +7,15 @@ pipeline {
         sh 'docker build -t ajay0071/jenkinsdemo:""$GIT_COMMIT"" .'
       }
     }
-    
-     stage ('Publish to DockerHub') {
-      steps {
-        withDockerRegistry([credentialsId: "docker-hub", url: ""]) {
-          sh 'docker push ajay0071/jenkinsdemo:""$GIT_COMMIT""'
-         }
-       }
-     }
+    stage('Publish to DockerHub') {
+    steps {
+        script {
+            docker.withRegistry('https://hub.docker.com/repositories/ajju0071', 'ajju0071') {
+                docker.image("ajay0071/jenkinsdemo:${GIT_COMMIT}").push()
+            }
+        }
+    }
+}
     stage ('Publish to ECR') {
       steps {
         //sh 'aws ecr-public get-login-password --region eu-west-2 | docker login --username AWS --password-stdin public.ecr.aws/t7e2c6o4'
