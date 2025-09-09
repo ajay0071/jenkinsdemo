@@ -1,4 +1,10 @@
 FROM almalinux:8
 
-RUN for user in frank; do useradd $user; echo "1234" | passwd $user --stdin; done
-RUN yum update -y && yum install mysql -y
+RUN yum update -y && \
+    yum install -y passwd shadow-utils && \
+    for user in frank; do \
+      useradd $user && echo "1234" | passwd --stdin $user; \
+    done && \
+    yum clean all
+
+RUN yum install -y mysql
