@@ -4,7 +4,7 @@ pipeline {
     stage ('Build') {
       steps {
         sh 'printenv'
-        sh 'docker build -t ajay0071/jenkinsdemo:""$GIT_COMMIT"" .'
+        sh 'docker build -t ajju0071/jenkinsdemo:""$GIT_COMMIT"" .'
       }
     }
     stage('Publish to DockerHub') {
