@@ -10,7 +10,7 @@ pipeline {
     stage('Publish to DockerHub') {
     steps {
         script {
-            docker.withRegistry('https://hub.docker.com/repositories/ajju0071', '529dc1e6-c005-4718-862b-8d42dde07145') {
+            docker.withRegistry('https://index.docker.io/v1/', '529dc1e6-c005-4718-862b-8d42dde07145') {
                 docker.image("ajay0071/jenkinsdemo:${GIT_COMMIT}").push()
             }
         }
